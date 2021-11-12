@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+  $("#buttonGet").click(function(){
+	
+	 $.ajax({
+    type:"GET", 
+    url: "http://localhost:8080/tipocambio/listar", 
+    success: function(data) {
+	    // alert(data);
+            $("body").append(JSON.stringify(data));
+        }, 
+    error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+            alert(textStatus);
+        },
+   dataType: "json"
+	});
+
+  });
+  
+ $("#buttonPost").click(function(){
+	
+	 var tipocambio = {
+            monto: 9,
+            monedaorigen:'PEN',
+            monedadestino:'USD'
+        }
+        
+           $.ajax({
+            url: 'http:/localhost:8080/tipocambio/calcular',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+	 		 	$("body").append(JSON.stringify(data));
+            },
+               error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status)
+        	},
+            data: JSON.stringify(tipocambio)
+        });
+        
+  });
+});
+</script>
+</head>
+<body>
+
+<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<button id="buttonGet" >Get External Content</button >
+<button id="buttonPost">Post External Content</button>
+
+
+</html>
