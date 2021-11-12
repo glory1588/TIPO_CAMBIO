@@ -1,0 +1,1 @@
+ insert into tipo_cambio (tipocambio, id) values (3.939, 1)
